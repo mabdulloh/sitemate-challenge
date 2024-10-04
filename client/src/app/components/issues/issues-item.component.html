@@ -1,0 +1,23 @@
+<div class="todoItem">
+    <p class="titleColumn">
+        {{issue.issueIdentifier}}
+    </p>
+    <p class="titleColumn">
+        {{issue.issueDetail}}
+    </p>
+    <p class="assigneeColumn">
+        {{issue.assignedTo}}
+    </p>
+    <div class="statusColumn center">
+        <p class="done center" *ngIf="issue.status === 'DONE'">DONE</p>
+        <p class="progress center" *ngIf="issue.status === 'NEW'">NEW</p>
+    </div>
+    <div class="actionsColumn">
+        <button class="editButton" (click)="onControlModal()">Edit</button>
+        <button class="deleteButton" (click)="onDelete(issue)">Delete</button>
+    </div>
+    <div *ngIf="modal" class="modal">
+        <app-edit-modal (closeModalEvent)="closeModal($event)" (saveChangesEvent)="saveChanges($event)" [issue]="issue" ></app-edit-modal>
+    </div>
+    
+</div>
