@@ -2,6 +2,7 @@ package com.sitemate.issue_tracker.service;
 
 import com.sitemate.issue_tracker.domain.Issue;
 import com.sitemate.issue_tracker.exception.IssueTrackerException;
+import com.sitemate.issue_tracker.repository.InMemoryIssueRepository;
 import com.sitemate.issue_tracker.repository.IssueRepository;
 import com.sitemate.issue_tracker.util.Mapper;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class InMemoryIssueService implements IssueService{
+public class InMemoryIssueService implements IssueService {
 
     private final IssueRepository issueRepository;
 
@@ -25,13 +26,12 @@ public class InMemoryIssueService implements IssueService{
 
     @Override
     public Issue edit(Issue issue) {
-                    final var optional = issueRepository.findByIssueIdentifier(issue.getIssueIdentifier());
+        final var optional = issueRepository.findByIssueIdentifier(issue.getIssueIdentifier());
         if (optional.isPresent()) {
             final var entity = optional.get();
             entity.setAssignTo(issue.getAssignTo());
             entity.setIssueDetail(issue.getIssueDetail());
-            issueRepository.save(entity);
-            return Mapper.map(entity);
+            return Mapper.map(issueRepository.update(entity));
         } else {
             throw new IssueTrackerException("Issue not found!");
         }
