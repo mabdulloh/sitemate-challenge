@@ -5,9 +5,12 @@ import com.sitemate.issue_tracker.exception.IssueTrackerException;
 import com.sitemate.issue_tracker.model.ResponseMessage;
 import com.sitemate.issue_tracker.service.IssueService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/issues")
 @RequiredArgsConstructor
@@ -21,68 +24,49 @@ public class IssueController {
     private static final String ISSUE_FOUND = "Issue Found Successfully";
 
     @PostMapping
-    public ResponseMessage add(@RequestBody Issue issue) {
+    public Issue add(@RequestBody Issue issue) {
         try {
-            return ResponseMessage.builder()
-                    .isSuccess(true)
-                    .response(issueService.add(issue))
-                    .successMsg(ISSUE_ADDED_SUCCESSFULLY)
-                    .build();
+            return issueService.add(issue);
         } catch (IssueTrackerException e) {
-            return ResponseMessage.builder().isSuccess(false).errMsg(e.getMessage()).build();
+            throw new IssueTrackerException("Cannot add");
         }
     }
 
     @GetMapping
-    public ResponseMessage findAll() {
+    public ResponseEntity<?> findAll() {
         try {
-            return ResponseMessage.builder()
-                    .isSuccess(true)
-                    .response(issueService.findAll())
-                    .successMsg(ISSUE_FOUND)
-                    .build();
+            return ResponseEntity.ok(issueService.findAll());
         } catch (IssueTrackerException e) {
-            return ResponseMessage.builder().isSuccess(false).errMsg(e.getMessage()).build();
+            throw new IssueTrackerException("Cannot find");
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseMessage find(@PathVariable String id) {
+    public ResponseEntity<?> find(@PathVariable String id) {
         try {
-            return ResponseMessage.builder()
-                    .isSuccess(true)
-                    .response(issueService.find(id))
-                    .successMsg(ISSUE_FOUND)
-                    .build();
-        } catch (IssueTrackerException e) {
-            return ResponseMessage.builder().isSuccess(false).errMsg(e.getMessage()).build();
+            return ResponseEntity.ok(issueService.find(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseMessage delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         try {
             issueService.delete(id);
-            return ResponseMessage.builder()
-                    .isSuccess(true)
-                    .successMsg(ISSUE_DELETED_SUCCESSFULLY)
-                    .build();
+            return ResponseEntity.accepted().build();
         } catch (IssueTrackerException e) {
-            return ResponseMessage.builder().isSuccess(false).errMsg(e.getMessage()).build();
+            throw new IssueTrackerException("Cannot delete");
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseMessage edit(@PathVariable String id, @RequestBody Issue issue) {
+    public Issue edit(@PathVariable String id, @RequestBody Issue issue) {
         try {
             issue.setIssueIdentifier(id);
-            return ResponseMessage.builder()
-                    .isSuccess(true)
-                    .response(issueService.edit(issue))
-                    .successMsg(ISSUE_EDITED_SUCCESSFULLY)
-                    .build();
+            return issueService.edit(issue);
         } catch (IssueTrackerException e) {
-            return ResponseMessage.builder().isSuccess(false).errMsg(e.getMessage()).build();
+            throw new IssueTrackerException("Cannot edit");
         }
     }
 }

@@ -25,7 +25,7 @@ public class InMemoryIssueService implements IssueService{
 
     @Override
     public Issue edit(Issue issue) {
-        final var optional = issueRepository.findByIssueIdentifier(issue.getIssueIdentifier());
+                    final var optional = issueRepository.findByIssueIdentifier(issue.getIssueIdentifier());
         if (optional.isPresent()) {
             final var entity = optional.get();
             entity.setAssignTo(issue.getAssignTo());

@@ -18,16 +18,21 @@ public class IssueRepository {
             var identifier = "CONTOSO-" + i;
             IssueEntity issue = new IssueEntity()
                     .setIssueIdentifier(identifier)
-                    .setIssueDetail(RandomStringUtils.randomAlphabetic(300))
+                    .setIssueDetail(RandomStringUtils.randomAlphabetic(30))
                     .setStatus("NEW")
                     .setCreatedOn(LocalDateTime.now());
             issueEntityMap.put(identifier, issue);
             i++;
-        } while(i < 10);
+        } while(i < 501);
     }
 
     public Optional<IssueEntity> findByIssueIdentifier(String issueIdentifier) {
-        return Optional.of(issueEntityMap.get(issueIdentifier));
+        final var item = issueEntityMap.get(issueIdentifier);
+        if (item != null) {
+            return Optional.of(item);
+        } else {
+            throw new IssueTrackerException("Entity not found!");
+        }
     }
 
     public void save(IssueEntity issue) {
