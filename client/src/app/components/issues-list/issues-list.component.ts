@@ -56,7 +56,15 @@ export class TodoListComponent implements OnInit {
 
   deleteIssue(issue: Issue) {
     this.issues = this.issues.filter(item => item.issueIdentifier !== issue.issueIdentifier);
-    this.issueService
+    this.issueService.deleteIssue(issue).subscribe(res => {
+      this.ngOnInit();
+    });
+  }
+
+  onDeleteButtonClick(issue: Issue) {
+    if (confirm('Do you wish to delete ' + issue.issueIdentifier)) {
+      this.deleteIssue(issue);
+    }
   }
 
 }

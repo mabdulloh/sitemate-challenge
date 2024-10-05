@@ -12,7 +12,7 @@
     <app-todo-item 
             *ngFor="let issue of issues | paginate: { itemsPerPage: 10, currentPage: p }" 
             [issue] ="issue"
-            (deleteIssue)="deleteIssue($event)"
+            (deleteIssue)="onDeleteButtonClick($event)"
             (updateIssue)="updateIssue($event)" >
     </app-todo-item>
     <div class="paginationControl">
