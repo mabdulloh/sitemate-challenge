@@ -13,6 +13,7 @@ import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
+import { AddModalComponent } from './components/add-modal/add-modal.component';
 
 export function playerFactory() {
   return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
@@ -24,7 +25,8 @@ export function playerFactory() {
     TodoListComponent,
     TodoItemComponent,
     EditModalComponent,
-    LoadingLottieComponent
+    LoadingLottieComponent,
+    AddModalComponent,
   ],
   imports: [
     BrowserModule,

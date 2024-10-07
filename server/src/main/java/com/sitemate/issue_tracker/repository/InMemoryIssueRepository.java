@@ -17,6 +17,7 @@ public class InMemoryIssueRepository implements IssueRepository {
         do {
             var identifier = "CONTOSO-" + i;
             IssueEntity issue = new IssueEntity()
+                    .setId(i)
                     .setIssueIdentifier(identifier)
                     .setIssueDetail(RandomStringUtils.randomAlphabetic(30))
                     .setStatus("NEW")

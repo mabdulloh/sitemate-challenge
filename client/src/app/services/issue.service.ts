@@ -19,7 +19,7 @@ export class IssueService {
     constructor(private http: HttpClient) { }
 
     getIssues(): Observable<Issue[]> {
-        return this.http.get<Issue[]>(`${this.baseUrl}` + "/issues");
+        return this.http.get<Issue[]>(`${this.baseUrl}/issues`);
     }
 
     editIssue(issue: Issue): Observable<Issue> {
@@ -35,6 +35,6 @@ export class IssueService {
     }
 
     addIssue(issue: Issue): Observable<Issue> {
-        return this.http.post<Issue>(`${this.baseUrl} + /issues`, issue);
+        return this.http.post<Issue>(`${this.baseUrl}/issues`, issue);
     }
 }

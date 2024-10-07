@@ -1,6 +1,7 @@
 package com.sitemate.issue_tracker.service;
 
 import com.sitemate.issue_tracker.domain.Issue;
+import com.sitemate.issue_tracker.entity.IssueEntity;
 import com.sitemate.issue_tracker.exception.IssueTrackerException;
 import com.sitemate.issue_tracker.repository.InMemoryIssueRepository;
 import com.sitemate.issue_tracker.repository.IssueRepository;
@@ -8,6 +9,7 @@ import com.sitemate.issue_tracker.util.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,8 @@ public class InMemoryIssueService implements IssueService {
     @Override
     public Issue add(Issue issue) {
         final var newIssue = Mapper.map(issue);
+        newIssue.setId(getId());
+        newIssue.setIssueIdentifier(generateIdentifier(newIssue.getId()));
         issueRepository.save(newIssue);
         return Mapper.map(newIssue);
     }
@@ -64,5 +68,17 @@ public class InMemoryIssueService implements IssueService {
         } else {
             throw new IssueTrackerException("Issue not found!");
         }
+    }
+
+    private int getId() {
+        return issueRepository.findAll()
+                .stream()
+                .max(Comparator.comparing(IssueEntity::getId))
+                .map(x -> x.getId() + 1)
+                .orElseThrow();
+    }
+
+    private String generateIdentifier(int id) {
+        return "CONTOSO-".concat(String.valueOf(id));
     }
 }

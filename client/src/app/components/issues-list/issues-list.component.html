@@ -16,10 +16,14 @@
             (updateIssue)="updateIssue($event)" >
     </app-todo-item>
     <div class="footer" style="text-align: right;">
-        <button mat-flat-button style="background-color: green;">Add</button>
+        <button mat-flat-button style="background-color: green;" (click)="onControlModal()">Add</button>
     </div>
     <div class="paginationControl">
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+
+    <div *ngIf="modal" class="modal">
+        <app-add-modal (closeModalEvent)="closeModal($event)" (saveChangesEvent)="saveChanges($event)"></app-add-modal>
     </div>
     
 </div>

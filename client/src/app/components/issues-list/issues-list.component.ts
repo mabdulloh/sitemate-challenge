@@ -12,6 +12,7 @@ export class TodoListComponent implements OnInit {
   p: number = 1;
   order: boolean | undefined = undefined; // Initialize status as undefined
   issues!: Issue[];
+  modal: boolean = false;
   
 
   constructor(
@@ -65,6 +66,26 @@ export class TodoListComponent implements OnInit {
     if (confirm('Do you wish to delete ' + issue.issueIdentifier)) {
       this.deleteIssue(issue);
     }
+  }
+
+  closeModal($event: boolean) {
+    this.modal = $event;
+  }
+
+  saveChanges($event:Issue) {
+    console.log("issue to be passed: " + $event)
+    this.issueService.addIssue($event).subscribe(data => {
+        this.onControlModal();
+        this.ngOnInit();
+    },
+    error => {
+      console.log("Error",error);
+    });
+    
+  }
+
+  onControlModal() {
+    this.modal = !this.modal;
   }
 
 }

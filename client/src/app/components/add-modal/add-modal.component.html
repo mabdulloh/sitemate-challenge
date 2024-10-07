@@ -1,0 +1,23 @@
+
+    <form class="modal" (ngSubmit)="saveChanges()" >
+        <h3>CREATE NEW ISSUE</h3>
+        <input class="titleInput" [(ngModel)]="newIssue!.issueDetail" name="detail">
+        <div class="completeCheck">
+            <!-- <input type="checkbox" [(ngModel)]="isChecked" (change)="checkValue(isChecked)" value="isChecked" [checked]="issue?.status === 'DONE'" name="status" >
+            <p style="margin-left: 1em;" [ngClass]="{ 'is-complete': newIssue?.status === 'DONE'}" >Completed</p> -->
+            <select [(ngModel)]="newIssue!.status" name="status">
+                <option *ngFor="let item of status">{{ item }}</option>
+            </select>
+        </div>
+        <div>
+            <select [(ngModel)]="newIssue!.assignedTo" name="assignee">
+                <option *ngFor="let item of user">{{ item }}</option>
+            </select>
+        </div>
+        <div class="buttons">
+            <button class="submitButton" type="submit" >Save</button>
+            <button class="closeButton" (click)="closeModal(false)">Cancel</button>     
+        </div>
+        
+    </form>
+<div class="closeModal" (click)="closeModal(false)"></div>

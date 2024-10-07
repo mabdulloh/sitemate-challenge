@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @Accessors(chain = true)
 public class IssueEntity {
-    private String id;
+    private int id;
 
     private String issueIdentifier;
 
