@@ -27,7 +27,7 @@ public class IssueRepositoryStub implements IssueRepository {
 
     @Override
     public void save(IssueEntity issue) {
-
+        issueEntityMap.put(issue.getIssueIdentifier(), issue);
     }
 
     @Override
