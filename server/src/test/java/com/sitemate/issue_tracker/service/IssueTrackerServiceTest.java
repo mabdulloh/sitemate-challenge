@@ -4,7 +4,6 @@ import com.sitemate.issue_tracker.stub.IssueRepositoryStub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 public class IssueTrackerServiceTest {
     private InMemoryIssueService issueService;
@@ -34,6 +33,20 @@ public class IssueTrackerServiceTest {
     public void findByIdentifierTest() {
         final var identifier = "CONTOSO-40";
         final var result = issueService.find(identifier);
+        Assertions.assertNotNull(result);
         Assertions.assertEquals(identifier, result.getIssueIdentifier());
+    }
+
+    @Test
+    public void updateTest() {
+        final var identifier = "CONTOSO-40";
+        final var johnDoe = "JOHN DOE";
+        final var inProgress = "IN_PROGRESS";
+        final var item = issueService.find(identifier);
+        item.setStatus(inProgress);
+        item.setAssignedTo(johnDoe);
+        final var result = issueService.edit(item);
+        Assertions.assertEquals(inProgress, result.getStatus());
+        Assertions.assertEquals(johnDoe, result.getAssignedTo());
     }
 }

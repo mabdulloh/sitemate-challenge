@@ -9,6 +9,7 @@ import com.sitemate.issue_tracker.util.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ public class InMemoryIssueService implements IssueService {
         final var newIssue = Mapper.map(issue);
         newIssue.setId(getId());
         newIssue.setIssueIdentifier(generateIdentifier(newIssue.getId()));
+        newIssue.setCreatedOn(LocalDateTime.now());
         issueRepository.save(newIssue);
         return Mapper.map(newIssue);
     }
@@ -47,6 +49,7 @@ public class InMemoryIssueService implements IssueService {
         return issueRepository.findAll()
                 .stream()
                 .map(Mapper::map)
+                .sorted(Comparator.comparing(Issue::getCreatedOn).reversed())
                 .collect(Collectors.toList());
     }
 
