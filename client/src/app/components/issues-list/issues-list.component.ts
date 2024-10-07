@@ -34,7 +34,7 @@ export class TodoListComponent implements OnInit {
   }
 
   // control order status and sort todos array according to its value
-  setStatus () {
+  setSort () {
     if(this.order === false || undefined){
       this.order = true;
       this.sortAscending(this.issues)

@@ -15,7 +15,7 @@ public class Issue {
 
     private String issueDetail;
 
-    private String assignTo;
+    private String assignedTo;
 
     private LocalDateTime createdOn;
 

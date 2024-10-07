@@ -72,6 +72,10 @@
     background-color: white;
 }
 
+.addButton {
+    background-color: $primary;
+}
+
 @media screen and (max-width: $on-mobile) {
     .todoListContainer {
         width: 90%;

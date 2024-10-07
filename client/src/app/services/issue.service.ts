@@ -33,4 +33,8 @@ export class IssueService {
         console.log(issue);
         return this.http.delete<void>(url, httpOptions);
     }
+
+    addIssue(issue: Issue): Observable<Issue> {
+        return this.http.post<Issue>(`${this.baseUrl} + /issues`, issue);
+    }
 }

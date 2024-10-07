@@ -29,8 +29,9 @@ public class InMemoryIssueService implements IssueService {
         final var optional = issueRepository.findByIssueIdentifier(issue.getIssueIdentifier());
         if (optional.isPresent()) {
             final var entity = optional.get();
-            entity.setAssignTo(issue.getAssignTo());
+            entity.setAssignedTo(issue.getAssignedTo());
             entity.setIssueDetail(issue.getIssueDetail());
+            entity.setStatus(issue.getStatus());
             return Mapper.map(issueRepository.update(entity));
         } else {
             throw new IssueTrackerException("Issue not found!");

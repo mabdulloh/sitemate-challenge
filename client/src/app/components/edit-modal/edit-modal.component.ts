@@ -13,7 +13,9 @@ export class EditModalComponent implements OnInit {
   @Output() closeModalEvent: EventEmitter<boolean> = new EventEmitter();
   newIssue?: Issue;
   isChecked?: boolean;
-  
+  status?: string[];
+  user?: string[];
+
 
   constructor() { }
 
@@ -21,10 +23,24 @@ export class EditModalComponent implements OnInit {
     this.newIssue = {
       ...this.issue
     }
-    this.isChecked = this.newIssue?.status === 'DONE';
+    this.status = [
+      "NEW",
+      "IN_PROGRESS",
+      "DONE",
+    ];
+    this.user = [
+      "Delores Duncan",
+      "Darrick Bullock",
+      "Millicent Dickerson",
+      "Fausto Kemp",
+      "Kathie Avery",
+      "Lucinda Huynh",
+      "Nita Jacobson",
+      "Petra Orozco"
+    ];
   }
 
-  closeModal(close:boolean) {
+  closeModal(close: boolean) {
     close = false;
     this.closeModalEvent.emit(close);
   }
@@ -36,10 +52,10 @@ export class EditModalComponent implements OnInit {
     this.saveChangesEvent.emit(this.newIssue);
   }
 
-  checkValue(event: any){
+  checkValue(event: any) {
     if (event === true) {
       this.newIssue?.status === 'DONE';
     }
- }
+  }
 
 }

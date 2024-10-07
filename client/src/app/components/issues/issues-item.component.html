@@ -9,6 +9,7 @@
         {{issue.assignedTo}}
     </p>
     <div class="statusColumn center">
+        <p class="progress center" *ngIf="issue.status === 'IN_PROGRESS'">IN_PROGRESS</p>
         <p class="done center" *ngIf="issue.status === 'DONE'">DONE</p>
         <p class="progress center" *ngIf="issue.status === 'NEW'">NEW</p>
     </div>

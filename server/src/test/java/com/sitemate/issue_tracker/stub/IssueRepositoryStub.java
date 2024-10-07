@@ -36,7 +36,7 @@ public class IssueRepositoryStub implements IssueRepository {
         if (item != null) {
             item
                     .setIssueDetail(issue.getIssueDetail())
-                    .setAssignTo(issue.getAssignTo())
+                    .setAssignedTo(issue.getAssignedTo())
                     .setStatus(issue.getStatus());
             return item;
         } else {

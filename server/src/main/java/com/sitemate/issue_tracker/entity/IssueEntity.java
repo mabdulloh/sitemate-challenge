@@ -16,7 +16,7 @@ public class IssueEntity {
 
     private String issueDetail;
 
-    private String assignTo;
+    private String assignedTo;
 
     private LocalDateTime createdOn;
 

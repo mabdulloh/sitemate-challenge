@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { LoadingLottieComponent } from './components/loading-lottie/loading-lottie.component';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button';
 
 export function playerFactory() {
   return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
@@ -30,7 +32,12 @@ export function playerFactory() {
     HttpClientModule,
     NgxPaginationModule,
     FormsModule,
-    LottieModule.forRoot({ player: playerFactory })
+    LottieModule.forRoot({ player: playerFactory }),
+    BrowserAnimationsModule,
+    MatButtonModule,
+  ],
+  exports: [
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
